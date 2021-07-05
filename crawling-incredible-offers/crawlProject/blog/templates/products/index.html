@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, td {
+          border: 1px solid rgb(194, 18, 194);
+          border-collapse: collapse;
+          background-color:#afc1d662; color:rgb(17, 14, 14);
+          text-align: center;
+        }
+        th{
+          color: rgb(145, 8, 104);
+          background:#afc1d662;
+        }
+    </style>
+</head>
+<body>
+
+    <table style="width:100%">
+        <tr>
+            <th>میزان تخفیف</th>
+            <th>قیمت محصول</th>
+            <th>نام محصول</th>
+        </tr>
+        {% for name, price, discount in products_list %}
+            <tr>
+                <td>{{ discount }}</td>
+                <td>{{ price }}</td>
+                <td>{{ name }}</td>
+             </tr>
+        {% endfor %}
+       
+      </table
+       
+</body>
+</html>

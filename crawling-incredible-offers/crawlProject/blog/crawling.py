@@ -17,14 +17,13 @@ class Products(object):
                  content = self.soup.find(id="main")
                  return content.find_all("div", class_="c-product-list__item js-product-list-content")
 
-    def product(self):
+    def get_product(self):
                  products = self.content()
                  product_name = []
                  price = []
                  discount = []
 
                  for product in products:
-                        
                           try:
                               product_name.append(product.find("div", class_="c-product-box__img js-url js-snt-carousel_product").find('img')["alt"])
                           except:
@@ -39,7 +38,7 @@ class Products(object):
                               discount.append(product.find("div", class_="c-price__discount-oval").find("span").text)
 
                           except:
-                              discount.append("Check out the discount")
+                              discount.append("بدون تخفیف")
 
                     
                           df = pd.DataFrame({'Product Name':product_name,'Price':price,'Discount':discount}) 
@@ -49,8 +48,4 @@ class Products(object):
                  return all_products                                      
 
              
-
-pr = Products(url)
-
-print(pr.product())
 
