@@ -19,28 +19,36 @@ class Products(object):
 
     def product(self):
                  products = self.content()
-                 product_info = {}
-                 all_products = []
+                 product_name = []
+                 price = []
+                 discount = []
 
                  for product in products:
-
-                          product_info['product_name'] = product.find("div", class_="c-product-box__img js-url js-snt-carousel_product")["title"]
-                          product_info['new_price'] = product.find("div", class_="c-price__value-wrapper js-product-card-price").text
+                        
+                          try:
+                              product_name.append(product.find("div", class_="c-product-box__img js-url js-snt-carousel_product").find('img')["alt"])
+                          except:
+                              product_name.append("No name")
+                       
+                          try:
+                              price.append(re.sub(r'\s+', ' ',product.find("div", class_="c-price__value-wrapper js-product-card-price").text))
+                          except:
+                              price.append("No Price")
 
                           try: 
-                              product_info['discount'] = product.find("div", class_="c-price__discount-oval").find("span").text
-                          except:
-                              product_info['discount'] = "Check out the discount" 
+                              discount.append(product.find("div", class_="c-price__discount-oval").find("span").text)
 
-                          all_products.append(product_info)  
+                          except:
+                              discount.append("Check out the discount")
+
+                    
+                          df = pd.DataFrame({'Product Name':product_name,'Price':price,'Discount':discount}) 
+                          df.to_csv('products.csv', index=False, encoding='utf-8-sig')
+                          all_products = [product_name, price, discount]
 
                  return all_products                                      
 
              
-
-
-
-
 
 pr = Products(url)
 
